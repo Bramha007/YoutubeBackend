@@ -4,11 +4,23 @@ import colors from "colors/safe.js";
 import express from "express";
 
 import connectDB from "./db/index.js";
+import app from "./app.js";
 
 dotenv.config({ path: "./env" });
-connectDB();
-const app = express();
-
+connectDB()
+  .then(() => {
+    const port = process.env.PORT || 8000;
+    app.on("error", (error) => {
+      console.log(colors.red.bold("ERROR:", error));
+      throw error;
+    });
+    app.listen(port, () => {
+      console.log(colors.blue.italic("Server is running on PORT:", port));
+    });
+  })
+  .catch((error) =>
+    console.log(colors.red.bold("MONGO DB connection failed !!!", error))
+  );
 // OTHER METHOD TO CONNECT DATA BASE NOT THAT PROFESSIONAL THOUGH
 /*
 (async function connectDB() {
