@@ -231,6 +231,7 @@ export const refreshAccessToken = asyncHandler(async (req, res, next) => {
   }
 });
 
+// CHANGE PASSWORD
 export const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
@@ -245,12 +246,14 @@ export const changeCurrentPassword = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, {}, "Password Updated"));
 });
 
+// GET CURRENT USER
 export const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
 });
 
+// UPDATE USER ACCOUNT
 export const updateUserAccount = asyncHandler(async (req, res) => {
   const { fullName, email } = req.body;
   if (!fullName || !email) {
@@ -272,6 +275,7 @@ export const updateUserAccount = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { user: updatedUser }, "User details updated"));
 });
 
+// UPDATE USER AVATAR
 export const updateUserAvavtar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;
   if (!avatarLocalPath) {
@@ -298,6 +302,7 @@ export const updateUserAvavtar = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { user: updatedUser }, "User Avatar updated"));
 });
 
+// UPDATE USER COVER IMAGE
 export const updateUserCover = asyncHandler(async (req, res) => {
   const coverImgLocalPath = req.file?.path;
   if (!coverImgLocalPath) {
